@@ -1,0 +1,119 @@
+@page "/"
+@using Models
+@using Services
+
+@inject DataService DataService
+
+<h1>Minecraft Leaderboard</h1>
+
+@if (users == null) {
+<p>Loading...</p>
+} else {
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            @foreach (User user in users)
+            {
+                <th>@user.Name</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                Spiders
+            </td>
+            @foreach (User user in users)
+            {
+                <td>@stats[user.ID].SpidersKilled</td>
+            }
+        </tr>
+        <tr>
+            <td>
+                Skeletons
+            </td>
+            @foreach (User user in users)
+            {
+                <td>@stats[user.ID].SkeletonsKilled</td>
+            }
+        </tr>
+        <tr>
+            <td>
+                Chickens
+            </td>
+            @foreach (User user in users)
+            {
+                <td>@stats[user.ID].ChickensKilled</td>
+            }
+        </tr>
+        <tr>
+            <td>
+                Pigs
+            </td>
+            @foreach (User user in users)
+            {
+                <td>@stats[user.ID].PigsKilled</td>
+            }
+        </tr>
+        <tr>
+            <td>
+                Salmon
+            </td>
+            @foreach (User user in users)
+            {
+                <td>@stats[user.ID].SalmonKilled</td>
+            }
+        </tr>
+        <tr>
+            <td>
+                Squid
+            </td>
+            @foreach (User user in users)
+            {
+                <td>@stats[user.ID].SquidKilled</td>
+            }
+        </tr>
+        <tr>
+            <td>
+                Sheep
+            </td>
+            @foreach (User user in users)
+            {
+                <td>@stats[user.ID].SheepKilled</td>
+            }
+        </tr>
+        <tr>
+            <td>
+                Zombies
+            </td>
+            @foreach (User user in users)
+            {
+                <td>@stats[user.ID].ZombiesKilled</td>
+            }
+        </tr>
+        <tr>
+            <td>
+                Cows
+            </td>
+            @foreach (User user in users)
+            {
+                <td>@stats[user.ID].CowsKilled</td>
+            }
+        </tr>
+    </tbody>
+</table>
+}
+@code {
+    List<User> users = null;
+    Dictionary<Guid, Stats> stats = new Dictionary<Guid, Stats>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await DataService.GetUsers();
+        foreach (User user in users)
+        {
+            stats[user.ID] = await DataService.GetStats(user.ID);
+        }
+    }
+}
