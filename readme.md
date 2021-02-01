@@ -1,3 +1,7 @@
+Just a silly little project to further gamify Minecraft by creating a leaderboard of kills.
+It loads the usercache to get user IDs, then loads the stats for each user.
+The browser then renders a table of kills.
+
 `dotnet publish -c Release --self-contained --runtime linux-x64`
 
 NOTE: Remember to change `Properties/launchSettings.json` to not be localhost
@@ -33,3 +37,8 @@ Then reload the service definitions:
 Then start the service:
 
 `sudo systemctl start minecraft-leaderboard`
+
+TODO:
+- make columns sortable
+- improve data and loops on index page, could probably use a single data set or something clever
+- add more stuff
